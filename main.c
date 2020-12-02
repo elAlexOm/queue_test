@@ -144,8 +144,8 @@ void cmd_queue_set( int argc, char *argv[] ) {
   if( num < 0 ) return;
   if( num >= QUEUE_LENGTH ) return;
 
-  value = strtol( argv[4], &end, 10 );
-  if(( value == LONG_MIN  ) || ( value == LONG_MAX  )) return;
+  value = strtoul( argv[4], &end, 10 );
+  if( value == LONG_MAX  ) return;
 
   pqueue[index]->pdata[num].val = value;
 
