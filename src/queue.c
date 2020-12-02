@@ -3,7 +3,7 @@
 *   \author Alex
 *   \date   30.11.2020
 *
-* Ðåàëèçàöèÿ î÷åðåäè
+* Ð ÐµÐ°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ Ð¾Ñ‡ÐµÑ€ÐµÐ´Ð¸
 */
 
 #include "queue.h"
@@ -14,10 +14,15 @@
 queue_t* create_queue( uint32_t length ) {
   queue_t* pqueue;
 
-  pqueue = malloc( sizeof( queue_t ) * length );
-  if( pqueue ) {
-    pqueue->lenght = length;
+  pqueue = malloc( sizeof( queue_t ));
+  if( NULL == pqueue ) return NULL;
+
+  pqueue->pdata = malloc( sizeof( queue_t ) * length );
+  if( NULL == pqueue->pdata ) {
+    free( pqueue );
+    return NULL;
   }
+  pqueue->lenght = length;
   return pqueue;
 }
 
@@ -31,9 +36,9 @@ queue_element_t* get_queue_element( queue_t* pqueue, int32_t index ) {
   return NULL;
 }
 
-int32_t set_queue_element(  queue_t* pqueue, int32_t index, queue_element_t* pelement ) {
+int32_t set_queue_element(  queue_t* pqueue, int32_t index, queue_element_t* src ) {
   if( pqueue->lenght > index ) {
-    memcpy( &pqueue->pdata[index], pelement, sizeof( queue_element_t ));
+    memcpy( &pqueue->pdata[index], src, sizeof( src ));
     return index;
   }
   return -1;
